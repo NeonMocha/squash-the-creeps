@@ -7,7 +7,7 @@ signal squashed
 @export var max_speed: int = 18
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	move_and_slide()
 
 
@@ -23,6 +23,8 @@ func initialize(start_position, player_position):
 	
 	velocity = Vector3.FORWARD * random_speed
 	velocity = velocity.rotated(Vector3.UP, rotation.y)
+	
+	$AnimationPlayer.speed_scale = random_speed / min_speed
 	
 
 func squash():

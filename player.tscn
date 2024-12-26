@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dn2auk00l6qdc"]
+[gd_scene load_steps=6 format=3 uid="uid://dn2auk00l6qdc"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_81wei"]
 [ext_resource type="PackedScene" uid="uid://dkvtpodbasqyw" path="res://art/player.glb" id="1_ub3wt"]
+[ext_resource type="AnimationLibrary" uid="uid://d31r3mv54uvt1" path="res://animation_library.res" id="3_t7niy"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_2y2bp"]
 radius = 0.9
@@ -31,5 +32,11 @@ monitorable = false
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MobDetector"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 shape = SubResource("CylinderShape3D_btqs6")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": ExtResource("3_t7niy")
+}
+autoplay = "float"
 
 [connection signal="body_entered" from="MobDetector" to="." method="_on_mob_detector_body_entered"]
