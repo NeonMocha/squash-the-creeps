@@ -4,6 +4,7 @@ extends Node
 
 @onready var mob_spawn_location = $SpawnPath/SpawnLocation
 @onready var player = $Player
+@onready var mob_timer: Timer = $MobTimer
 
 
 # Called when the node enters the scene tree for the first time.
@@ -25,3 +26,7 @@ func _on_mob_timer_timeout() -> void:
 	mob.initialize(mob_spawn_location.position, player_position)
 	
 	add_child(mob)
+
+
+func _on_player_hit() -> void:
+	mob_timer.stop()
