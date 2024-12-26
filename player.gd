@@ -11,6 +11,7 @@ signal hit
 @onready var pivot: Node3D = $Pivot
 
 var target_velocity = Vector3.ZERO
+var _old_direction = Vector3.ZERO
 
 func _physics_process(delta: float) -> void:
 	var direction = Vector3.ZERO
@@ -25,9 +26,10 @@ func _physics_process(delta: float) -> void:
 		direction.z -= 1
 		
 	if direction != Vector3.ZERO:
-		direction = direction.normalized()
+		direction = lerp(_old_direction, direction.normalized(), 0.1)
 		pivot.basis = Basis.looking_at(direction)
 		animation_player.speed_scale = 4 if is_on_floor() else 0
+		_old_direction = direction
 	else:
 		animation_player.speed_scale = 1 if is_on_floor() else 0
 		
@@ -41,6 +43,7 @@ func _physics_process(delta: float) -> void:
 		target_velocity.y = jump_impulse
 		
 	velocity = target_velocity
+	
 	move_and_slide()
 	
 	for index in range(get_slide_collision_count()):
